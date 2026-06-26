@@ -6,6 +6,7 @@ import { ReleaseCard } from "./components/ReleaseCard";
 import { ArticleCard } from "./components/ArticleCard";
 import { EventDetail } from "./components/EventDetail";
 import { TabBar } from "./components/TabBar";
+import styles from "./App.module.scss";
 
 const LOGO_URL =
   "https://static.tildacdn.com/tild3631-3437-4565-a337-336365663138/Asset_24x.png";
@@ -39,16 +40,20 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="screen loading-screen">
-        <div className="logo-loader" aria-label="Загрузка">
-          <img className="logo-loader__image" src={LOGO_URL} alt="System 108" />
+      <div className={`${styles.screen} ${styles.loadingScreen}`}>
+        <div className={styles.logoLoader} aria-label="Загрузка">
+          <img className={styles.logoLoaderImage} src={LOGO_URL} alt="System 108" />
         </div>
       </div>
     );
   }
 
   if (error || !data) {
-    return <div className="screen center error">{error ?? "Ошибка загрузки"}</div>;
+    return (
+      <div className={`${styles.screen} ${styles.center} ${styles.error}`}>
+        {error ?? "Ошибка загрузки"}
+      </div>
+    );
   }
 
   if (selectedEvent) {
@@ -62,20 +67,20 @@ export default function App() {
   }
 
   return (
-    <div className="screen">
-      <header className="header">
-        <img className="header-logo" src={LOGO_URL} alt="System 108" />
-        <p className="eyebrow">Moscow · since 2015</p>
-        <p className="subtitle">Релизы, ивенты и новости лейбла</p>
+    <div className={styles.screen}>
+      <header className={styles.header}>
+        <img className={styles.headerLogo} src={LOGO_URL} alt="System 108" />
+        <p className={styles.eyebrow}>Moscow · since 2015</p>
+        <p className={styles.subtitle}>Релизы, ивенты и новости лейбла</p>
       </header>
 
       <TabBar active={tab} onChange={setTab} />
 
-      <main className="content">
+      <main className={styles.content}>
         {tab === "events" && (
           <section>
             {upcomingEvents.length === 0 ? (
-              <p className="empty">Ближайших ивентов пока нет</p>
+              <p className={styles.empty}>Ближайших ивентов пока нет</p>
             ) : (
               upcomingEvents.map((event) => (
                 <EventCard
@@ -113,7 +118,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="footer">
+      <footer className={styles.footer}>
         <button type="button" onClick={() => openExternal("https://system108.com")}>
           system108.com
         </button>

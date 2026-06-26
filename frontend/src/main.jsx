@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import WebApp from "@twa-dev/sdk";
 import App from "./App";
-import "./index.css";
+import "./styles/global.scss";
 
 WebApp.ready();
 WebApp.expand();

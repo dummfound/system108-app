@@ -1,3 +1,5 @@
+import styles from "./TabBar.module.scss";
+
 const tabs = [
   { id: "events", label: "Ивенты" },
   { id: "releases", label: "Релизы" },
@@ -6,12 +8,12 @@ const tabs = [
 
 export function TabBar({ active, onChange }) {
   return (
-    <nav className="tabs" aria-label="Разделы">
+    <nav className={styles.tabs} aria-label="Разделы">
       {tabs.map((tab) => (
         <button
           key={tab.id}
           type="button"
-          className={active === tab.id ? "tab active" : "tab"}
+          className={`${styles.tab} ${active === tab.id ? styles.active : ""}`}
           onClick={() => onChange(tab.id)}
         >
           {tab.label}

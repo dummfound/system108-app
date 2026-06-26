@@ -1,0 +1,22 @@
+@use "../styles/variables" as *;
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.tab {
+  border: 1px solid $border;
+  background: $surface;
+  color: $muted;
+  border-radius: 999px;
+  padding: 10px 12px;
+}
+
+.active {
+  color: $bg;
+  background: $accent;
+  border-color: $accent;
+}

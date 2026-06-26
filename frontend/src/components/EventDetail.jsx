@@ -1,29 +1,31 @@
+import styles from "./EventDetail.module.scss";
+
 export function EventDetail({ event, onBack, onOpenLink }) {
   return (
-    <div className="screen detail">
-      <button type="button" className="back" onClick={onBack}>
+    <div className={styles.screen}>
+      <button type="button" className={styles.back} onClick={onBack}>
         ← Назад
       </button>
 
       {event.posterUrl && (
         <div
-          className="detail-poster"
+          className={styles.detailPoster}
           style={{ backgroundImage: `url(${event.posterUrl})` }}
         />
       )}
 
-      <div className="detail-body">
-        <p className="meta">{event.date}</p>
+      <div className={styles.detailBody}>
+        <p className={styles.meta}>{event.date}</p>
         <h1>{event.title}</h1>
-        <p className="muted">
+        <p className={styles.muted}>
           {event.venue}
           {event.city ? `, ${event.city}` : ""}
         </p>
 
         {event.lineup.length > 0 && (
-          <section className="detail-section">
+          <section className={styles.detailSection}>
             <h3>Лайнап</h3>
-            <ul className="lineup">
+            <ul className={styles.lineup}>
               {event.lineup.map((artist) => (
                 <li key={artist}>{artist}</li>
               ))}
@@ -31,17 +33,17 @@ export function EventDetail({ event, onBack, onOpenLink }) {
           </section>
         )}
 
-        <div className="actions">
+        <div className={styles.actions}>
           {event.ticketUrl && (
             <button
               type="button"
-              className="primary"
+              className={styles.primary}
               onClick={() => onOpenLink(event.ticketUrl)}
             >
               Купить билеты
             </button>
           )}
-          <button type="button" className="secondary" onClick={() => onOpenLink(event.url)}>
+          <button type="button" className={styles.secondary} onClick={() => onOpenLink(event.url)}>
             На сайте
           </button>
         </div>

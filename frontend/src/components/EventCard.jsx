@@ -1,24 +1,31 @@
+import styles from "./EventCard.module.scss";
+
 export function EventCard({ event, onOpen }) {
   return (
-    <article className="card event-card" onClick={onOpen} role="button" tabIndex={0}>
+    <article
+      className={`${styles.card} ${styles.eventCard}`}
+      onClick={onOpen}
+      role="button"
+      tabIndex={0}
+    >
       {event.posterUrl && (
         <div
-          className="card-cover"
+          className={styles.cardCover}
           style={{ backgroundImage: `url(${event.posterUrl})` }}
           aria-hidden
         />
       )}
-      <div className="card-body">
-        <p className="meta">{event.date}</p>
+      <div className={styles.cardBody}>
+        <p className={styles.meta}>{event.date}</p>
         <h2>{event.title}</h2>
-        <p className="muted">
+        <p className={styles.muted}>
           {event.venue}
           {event.city ? `, ${event.city}` : ""}
         </p>
         {event.lineup.length > 0 && (
-          <div className="chips">
+          <div className={styles.chips}>
             {event.lineup.map((artist) => (
-              <span key={artist} className="chip">
+              <span key={artist} className={styles.chip}>
                 {artist}
               </span>
             ))}

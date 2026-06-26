@@ -1,0 +1,29 @@
+@use "variables" as *;
+
+@mixin meta-text {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $muted;
+}
+
+@mixin muted-text {
+  margin: 8px 0 0;
+  color: $muted;
+  font-size: 14px;
+}
+
+@mixin surface-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  overflow: hidden;
+}
+
+@mixin cover-image {
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-color: $surface-2;
+}

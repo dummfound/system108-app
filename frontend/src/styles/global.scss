@@ -1,0 +1,25 @@
+@use "variables" as *;
+
+:root {
+  color-scheme: dark;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.45;
+  font-weight: 400;
+  color: #f2f2f2;
+  background: $bg;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: $bg;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}

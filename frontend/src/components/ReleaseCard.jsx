@@ -1,18 +1,20 @@
+import styles from "./ReleaseCard.module.scss";
+
 export function ReleaseCard({ release, onListen }) {
   return (
-    <article className="card release-card">
+    <article className={styles.card}>
       {release.coverUrl && (
         <div
-          className="release-cover"
+          className={styles.releaseCover}
           style={{ backgroundImage: `url(${release.coverUrl})` }}
           aria-hidden
         />
       )}
-      <div className="card-body">
-        <p className="meta">{release.catalogNumber}</p>
+      <div className={styles.cardBody}>
+        <p className={styles.meta}>{release.catalogNumber}</p>
         <h2>{release.title}</h2>
-        <p className="muted">{release.artist}</p>
-        <button type="button" className="inline-action" onClick={onListen}>
+        <p className={styles.muted}>{release.artist}</p>
+        <button type="button" className={styles.inlineAction} onClick={onListen}>
           Слушать
         </button>
       </div>
