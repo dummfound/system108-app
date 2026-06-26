@@ -4,6 +4,7 @@ import NodeCache from "node-cache";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { scrapeAll } from "./scraper.js";
+import { syncMenuButton } from "./telegram.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 3001);
@@ -109,6 +110,7 @@ app.get("*", (_req, res) => {
 
 const server = app.listen(PORT, () => {
   console.log(`System 108 API running on http://localhost:${PORT}`);
+  syncMenuButton();
 });
 
 server.on("error", (error) => {
