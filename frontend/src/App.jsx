@@ -14,6 +14,8 @@ const LOGO_URL =
 const MARQUEE_TEXT =
   "Добро пожаловать в приложение System 108 · Welcome to System 108 app · ";
 
+const HEADER_COMPACT_SCROLL = 30;
+
 function openExternal(url) {
   if (WebApp.openLink) {
     WebApp.openLink(url);
@@ -28,6 +30,7 @@ export default function App() {
   const [error, setError] = useState(null);
   const [tab, setTab] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [headerCompact, setHeaderCompact] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -42,6 +45,16 @@ export default function App() {
     }
 
     loadData();
+  }, []);
+
+  useEffect(() => {
+    function onScroll() {
+      setHeaderCompact(window.scrollY > HEADER_COMPACT_SCROLL);
+    }
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const upcomingEvents = useMemo(
@@ -79,7 +92,7 @@ export default function App() {
 
   return (
     <div className={styles.screen}>
-      <div className={styles.stickyBar}>
+      <div className={`${styles.stickyBar} ${headerCompact ? styles.stickyBarCompact : ""}`}>
         <header className={styles.header}>
           <div className={styles.marquee} aria-label="Добро пожаловать в приложение System 108">
             <div className={styles.marqueeTrack}>
