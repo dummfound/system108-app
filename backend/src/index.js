@@ -97,7 +97,7 @@ app.post("/api/refresh", async (_req, res) => {
   res.json(data);
 });
 
-const frontendDist = path.resolve(__dirname, "../../frontend/dist");
+const frontendDist = path.resolve(__dirname, "../public");
 app.use(express.static(frontendDist));
 app.get("*", (_req, res) => {
   res.sendFile(path.join(frontendDist, "index.html"), (error) => {
