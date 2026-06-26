@@ -1,6 +1,9 @@
 @use "../styles/variables" as *;
 
+@use "../styles/mixins" as *;
+
 .tabs {
+  @include ios-shimmer-border;
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

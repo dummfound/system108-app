@@ -13,6 +13,10 @@
   font-weight: 400;
   color: $text;
   background: $bg;
+  --tilt-x: 0;
+  --tilt-y: 0;
+  --tilt-angle: 0deg;
+  --tilt-strength: 0;
 }
 
 * {
@@ -30,4 +34,30 @@ body {
 button {
   font: inherit;
   cursor: pointer;
+}
+
+html:not(.tilt-active) [class*="card"]::before,
+html:not(.tilt-active) [class*="tabs"]::before,
+html:not(.tilt-active) [class*="stickyBar"]::before {
+  animation: border-shimmer 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="card"]::before,
+  [class*="tabs"]::before,
+  [class*="stickyBar"]::before {
+    animation: none !important;
+    opacity: 0.35;
+  }
+}
+
+@keyframes border-shimmer {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
 }

@@ -7,6 +7,7 @@ import { ArticleCard } from "./components/ArticleCard";
 import { EventDetail } from "./components/EventDetail";
 import { TabBar } from "./components/TabBar";
 import styles from "./App.module.scss";
+import { useDeviceTilt } from "./hooks/useDeviceTilt";
 
 const LOGO_URL =
   "https://static.tildacdn.com/tild3631-3437-4565-a337-336365663138/Asset_24x.png";
@@ -31,6 +32,8 @@ export default function App() {
   const [tab, setTab] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [headerCompact, setHeaderCompact] = useState(false);
+
+  useDeviceTilt();
 
   useEffect(() => {
     async function loadData() {

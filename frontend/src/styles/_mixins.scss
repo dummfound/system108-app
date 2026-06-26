@@ -17,13 +17,47 @@
 
 @mixin ios-glass {
   background: $ios-glass;
-  border: 1px solid $ios-glass-border;
+  border: 1px solid transparent;
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
+@mixin ios-shimmer-border {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from calc(var(--tilt-angle) + var(--tilt-x) * 50deg),
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.55)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 3;
+    opacity: calc(0.42 + var(--tilt-strength) * 0.48);
+    transition: opacity 0.25s $ease-ios;
+  }
+}
+
 @mixin ios-container {
   @include ios-glass;
+  @include ios-shimmer-border;
   border-radius: $radius;
   box-shadow: $ios-shadow-soft, $ios-highlight;
 }
