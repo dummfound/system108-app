@@ -1,0 +1,25 @@
+{
+  "name": "system108-telegram-app",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Telegram Mini App for System 108 music label",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=frontend",
+    "start": "npm run start --workspace=backend",
+    "bot": "node --env-file=.env bot/poll.js",
+    "tunnel": "node --env-file=.env scripts/tunnel.cjs"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
