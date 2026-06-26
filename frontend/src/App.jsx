@@ -102,7 +102,7 @@ export default function App() {
           </div>
           <img className={styles.headerLogo} src={LOGO_URL} alt="System 108" />
           <p className={styles.eyebrow}>Moscow · since 2015</p>
-          <p className={styles.subtitle}>Релизы, ивенты и новости лейбла</p>
+          <p className={styles.subtitle}>info@system108.com</p>
         </header>
 
         <TabBar active={tab} onChange={setTab} />

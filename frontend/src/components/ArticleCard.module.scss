@@ -4,11 +4,6 @@
 .card {
   @include media-card;
   cursor: pointer;
-  transition: background 0.2s ease;
-
-  &:active {
-    background: $surface-2;
-  }
 }
 
 .cover {
@@ -40,7 +35,7 @@
 }
 
 .readMore {
-  @include pill-secondary;
+  @include pill-primary;
   margin-top: 10px;
   padding: 7px 14px;
   font-size: 12px;
