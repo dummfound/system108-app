@@ -135,11 +135,11 @@
 
 .marquee {
   overflow: hidden;
-  max-height: 32px;
-  margin-bottom: 12px;
+  max-height: 20px;
+  margin-bottom: 8px;
   // border: 1px solid $border;
   background: $surface;
-  padding: 7px 0;
+  padding: 3px 0;
   opacity: 1;
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
   transition:
@@ -157,10 +157,10 @@
 
   span {
     flex-shrink: 0;
-    padding-right: 48px;
+    padding-right: 32px;
     white-space: nowrap;
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    font-size: 9px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: $muted;
   }
