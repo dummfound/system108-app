@@ -37,15 +37,13 @@ button {
 }
 
 html:not(.tilt-active) [class*="card"]::before,
-html:not(.tilt-active) [class*="tabs"]::before,
-html:not(.tilt-active) [class*="stickyBar"]::before {
+html:not(.tilt-active) [class*="tabs"]::before {
   animation: border-shimmer 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   [class*="card"]::before,
-  [class*="tabs"]::before,
-  [class*="stickyBar"]::before {
+  [class*="tabs"]::before {
     animation: none !important;
     opacity: 0.35;
   }
