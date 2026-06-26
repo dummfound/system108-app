@@ -11,6 +11,9 @@ import styles from "./App.module.scss";
 const LOGO_URL =
   "https://static.tildacdn.com/tild3631-3437-4565-a337-336365663138/Asset_24x.png";
 
+const MARQUEE_TEXT =
+  "Добро пожаловать в приложение System 108 · Welcome to System 108 app · ";
+
 function openExternal(url) {
   if (WebApp.openLink) {
     WebApp.openLink(url);
@@ -27,10 +30,18 @@ export default function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
-    fetchAppData()
-      .then(setData)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+    async function loadData() {
+      try {
+        const result = await fetchAppData();
+        setData(result);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Ошибка загрузки");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
   }, []);
 
   const upcomingEvents = useMemo(
@@ -70,6 +81,12 @@ export default function App() {
     <div className={styles.screen}>
       <div className={styles.stickyBar}>
         <header className={styles.header}>
+          <div className={styles.marquee} aria-label="Добро пожаловать в приложение System 108">
+            <div className={styles.marqueeTrack}>
+              <span>{MARQUEE_TEXT}</span>
+              <span aria-hidden>{MARQUEE_TEXT}</span>
+            </div>
+          </div>
           <img className={styles.headerLogo} src={LOGO_URL} alt="System 108" />
           <p className={styles.eyebrow}>Moscow · since 2015</p>
           <p className={styles.subtitle}>Релизы, ивенты и новости лейбла</p>

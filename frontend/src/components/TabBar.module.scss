@@ -1,21 +1,39 @@
 @use "../styles/variables" as *;
 
 .tabs {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  padding: 4px;
+  background: $surface-2;
+  border: 1px solid $border;
+  border-radius: 999px;
+}
+
+.slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 3);
+  height: calc(100% - 8px);
+  background: $accent;
+  border-radius: 999px;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .tab {
-  border: 1px solid $border;
-  background: $surface;
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
   color: $muted;
   border-radius: 999px;
   padding: 10px 12px;
+  transition: color 0.32s ease;
 }
 
 .active {
   color: $bg;
-  background: $accent;
-  border-color: $accent;
 }

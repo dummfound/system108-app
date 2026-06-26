@@ -8,10 +8,9 @@ export function EventDetail({ event, onBack, onOpenLink }) {
       </button>
 
       {event.posterUrl && (
-        <div
-          className={styles.detailPoster}
-          style={{ backgroundImage: `url(${event.posterUrl})` }}
-        />
+        <div className={styles.detailPosterWrap}>
+          <img className={styles.detailPoster} src={event.posterUrl} alt={event.title} />
+        </div>
       )}
 
       <div className={styles.detailBody}>

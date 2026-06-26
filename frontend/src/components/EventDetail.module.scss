@@ -15,11 +15,23 @@
   padding: 0 0 12px;
 }
 
-.detailPoster {
-  @include cover-image;
-  aspect-ratio: 4 / 5;
-  border-radius: $radius;
+.detailPosterWrap {
   margin-bottom: 16px;
+  border-radius: $radius;
+  overflow: hidden;
+  background: $surface-2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailPoster {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(70vh, 560px);
+  object-fit: contain;
+  object-position: center;
 }
 
 .detailBody {

@@ -101,6 +101,42 @@
   margin-bottom: 14px;
 }
 
+.marquee {
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid $border;
+  border-radius: 999px;
+  background: $surface;
+  padding: 7px 0;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+
+  span {
+    flex-shrink: 0;
+    padding-right: 48px;
+    white-space: nowrap;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $muted;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .headerLogo {
   display: block;
   width: 120px;
