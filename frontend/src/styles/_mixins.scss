@@ -1,17 +1,16 @@
 @use "variables" as *;
 
 @mixin meta-text {
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: $muted;
 }
 
 @mixin muted-text {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   color: $muted;
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 @mixin surface-card {
@@ -19,6 +18,68 @@
   border: 1px solid $border;
   border-radius: $radius;
   overflow: hidden;
+}
+
+@mixin media-card {
+  @include surface-card;
+  display: grid;
+  grid-template-columns: $cover-size 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+}
+
+@mixin card-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: $text;
+}
+
+@mixin pill-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: $accent;
+  color: $accent-text;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@mixin pill-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 14px;
+  background: $surface-2;
+  color: $text;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@mixin card-cover {
+  width: $cover-size;
+  height: $cover-size;
+  border-radius: $cover-radius;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  flex-shrink: 0;
+}
+
+@mixin cover-placeholder {
+  width: $cover-size;
+  height: $cover-size;
+  border-radius: $cover-radius;
+  background: $surface-2;
+  flex-shrink: 0;
 }
 
 @mixin cover-image {

@@ -3,6 +3,8 @@
 
 .card {
   @include surface-card;
+  display: flex;
+  flex-direction: column;
 }
 
 .eventCard {
@@ -27,6 +29,8 @@
 
 .meta {
   @include meta-text;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .muted {

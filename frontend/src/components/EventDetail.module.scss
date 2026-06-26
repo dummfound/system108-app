@@ -45,6 +45,8 @@
 
 .meta {
   @include meta-text;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .muted {
@@ -96,7 +98,7 @@
 
 .primary {
   background: $accent;
-  color: $bg;
+  color: $accent-text;
   border-color: $accent;
   font-weight: 600;
 }
