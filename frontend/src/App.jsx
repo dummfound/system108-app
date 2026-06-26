@@ -68,13 +68,15 @@ export default function App() {
 
   return (
     <div className={styles.screen}>
-      <header className={styles.header}>
-        <img className={styles.headerLogo} src={LOGO_URL} alt="System 108" />
-        <p className={styles.eyebrow}>Moscow · since 2015</p>
-        <p className={styles.subtitle}>Релизы, ивенты и новости лейбла</p>
-      </header>
+      <div className={styles.stickyBar}>
+        <header className={styles.header}>
+          <img className={styles.headerLogo} src={LOGO_URL} alt="System 108" />
+          <p className={styles.eyebrow}>Moscow · since 2015</p>
+          <p className={styles.subtitle}>Релизы, ивенты и новости лейбла</p>
+        </header>
 
-      <TabBar active={tab} onChange={setTab} />
+        <TabBar active={tab} onChange={setTab} />
+      </div>
 
       <main className={styles.content}>
         {tab === "events" && (
