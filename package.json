@@ -9,6 +9,7 @@
     "dev:frontend": "npm run dev --workspace=frontend",
     "build": "npm run build --workspace=frontend",
     "start": "npm run start --workspace=backend",
+    "version:bump": "node scripts/bump-version.mjs",
     "bot": "node --env-file=.env bot/poll.js",
     "tunnel": "node --env-file=.env scripts/tunnel.cjs"
   },

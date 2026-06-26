@@ -8,6 +8,7 @@ import { EventDetail } from "./components/EventDetail";
 import { TabBar } from "./components/TabBar";
 import styles from "./App.module.scss";
 import { useDeviceTilt } from "./hooks/useDeviceTilt";
+import appVersion from "../../version.json";
 
 const LOGO_URL =
   "https://static.tildacdn.com/tild3631-3437-4565-a337-336365663138/Asset_24x.png";
@@ -157,7 +158,7 @@ export default function App() {
         <button type="button" onClick={() => openExternal("https://system108.com")}>
           system108.com
         </button>
-        <span>обновлено {new Date(data.fetchedAt).toLocaleString("ru-RU")}</span>
+        <span>ver.{appVersion.version}</span>
       </footer>
     </div>
   );
