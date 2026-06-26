@@ -57,15 +57,63 @@ button {
   margin-bottom: 14px;
 }
 
-.header-logo--loading {
-  width: 96px;
-  margin-bottom: 16px;
-  opacity: 0.9;
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0;
 }
 
-.screen.center p {
-  margin: 0;
-  color: var(--muted);
+.logo-loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-loader::before {
+  content: "";
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 72%);
+  animation: logo-glow 2.6s ease-in-out infinite;
+}
+
+.logo-loader__image {
+  position: relative;
+  z-index: 1;
+  width: 96px;
+  height: auto;
+  animation: logo-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes logo-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.97);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes logo-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
 }
 
 .eyebrow {

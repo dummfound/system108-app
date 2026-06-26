@@ -39,9 +39,10 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="screen center">
-        <img className="header-logo header-logo--loading" src={LOGO_URL} alt="System 108" />
-        <p>Загрузка...</p>
+      <div className="screen loading-screen">
+        <div className="logo-loader" aria-label="Загрузка">
+          <img className="logo-loader__image" src={LOGO_URL} alt="System 108" />
+        </div>
       </div>
     );
   }
