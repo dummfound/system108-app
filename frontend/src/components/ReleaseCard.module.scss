@@ -27,9 +27,11 @@
 
 .inlineAction {
   @include pill-primary;
+  align-items: center;
   margin-top: 10px;
   padding: 8px 16px;
   font-size: 12px;
+  line-height: 1;
 }
 
 .playIcon {
@@ -37,4 +39,5 @@
   height: 12px;
   display: block;
   flex-shrink: 0;
+  transform: translateY(-0.5px);
 }

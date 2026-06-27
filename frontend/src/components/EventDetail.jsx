@@ -38,7 +38,7 @@ export function EventDetail({ event, onBack, onOpenLink }) {
           {(event.ticketUrl || event.url) && (
             <button
               type="button"
-              className={styles.primary}
+              className={styles.tickets}
               onClick={() => onOpenLink(event.ticketUrl || event.url)}
             >
               Билеты
