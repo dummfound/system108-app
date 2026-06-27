@@ -3,9 +3,11 @@ import styles from "./EventDetail.module.scss";
 export function EventDetail({ event, onBack, onOpenLink }) {
   return (
     <div className={styles.screen}>
-      <button type="button" className={styles.back} onClick={onBack}>
-        ← Назад
-      </button>
+      <div className={styles.topBar}>
+        <button type="button" className={styles.back} onClick={onBack}>
+          ← Назад
+        </button>
+      </div>
 
       {event.posterUrl && (
         <div className={styles.detailPosterWrap}>

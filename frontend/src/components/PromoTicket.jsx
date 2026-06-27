@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./PromoTicket.module.scss";
 
 const KRUTO_TICKET_URL = "https://krutofestival.com/#event/2641206";
 const COUNTDOWN_SECONDS = 10;
+const STORAGE_KEY = "system108-promo-ticket";
 
 function DismissIcon() {
   return (
@@ -17,17 +18,64 @@ function DismissIcon() {
   );
 }
 
+function readPromoState() {
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writePromoState(patch) {
+  const next = { ...readPromoState(), ...patch };
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+}
+
+function createInitialState() {
+  const saved = readPromoState();
+  const startedAt = saved?.startedAt ?? Date.now();
+
+  if (!saved?.startedAt) {
+    writePromoState({ startedAt });
+  }
+
+  if (saved?.dismissed) {
+    return {
+      entered: true,
+      dismissed: true,
+      secondsLeft: 0,
+    };
+  }
+
+  const elapsed = Math.floor((Date.now() - startedAt) / 1000);
+  const secondsLeft = Math.max(0, COUNTDOWN_SECONDS - elapsed);
+
+  return {
+    entered: Boolean(saved?.entered || elapsed >= 1),
+    dismissed: false,
+    secondsLeft,
+  };
+}
+
 export function PromoTicket({ onOpenLink }) {
-  const [entered, setEntered] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState(COUNTDOWN_SECONDS);
+  const initial = useRef(createInitialState()).current;
+  const [entered, setEntered] = useState(initial.entered);
+  const [dismissed, setDismissed] = useState(initial.dismissed);
+  const [secondsLeft, setSecondsLeft] = useState(initial.secondsLeft);
 
   const canClose = secondsLeft === 0;
 
   useEffect(() => {
-    const enterTimer = window.setTimeout(() => setEntered(true), 400);
+    if (entered) return undefined;
+
+    const enterTimer = window.setTimeout(() => {
+      setEntered(true);
+      writePromoState({ entered: true });
+    }, 400);
+
     return () => window.clearTimeout(enterTimer);
-  }, []);
+  }, [entered]);
 
   useEffect(() => {
     if (secondsLeft <= 0) return undefined;
@@ -60,7 +108,10 @@ export function PromoTicket({ onOpenLink }) {
             type="button"
             className={`${styles.dismiss} ${canClose ? styles.dismissReady : ""}`}
             disabled={!canClose}
-            onClick={() => setDismissed(true)}
+            onClick={() => {
+              setDismissed(true);
+              writePromoState({ dismissed: true, entered: true });
+            }}
             aria-label={canClose ? "Закрыть" : `Закрыть через ${secondsLeft} секунд`}
           >
             {canClose ? (

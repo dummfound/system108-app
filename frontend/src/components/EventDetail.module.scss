@@ -3,16 +3,29 @@
 
 .screen {
   min-height: 100vh;
-  padding: 16px 16px 28px;
+  padding: 0 16px 28px;
   max-width: 720px;
   margin: 0 auto;
 }
 
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin: 0 -16px;
+  padding: 16px 16px 12px;
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
 .back {
-  background: none;
-  border: none;
-  color: $muted;
-  padding: 0 0 12px;
+  @include ios-chip;
+  @include ios-pressable;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .detailPosterWrap {

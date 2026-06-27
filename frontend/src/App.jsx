@@ -80,84 +80,84 @@ export default function App() {
     );
   }
 
-  if (selectedEvent) {
-    return (
-      <EventDetail
-        event={selectedEvent}
-        onBack={() => setSelectedEvent(null)}
-        onOpenLink={openExternal}
-      />
-    );
-  }
-
   return (
-    <div className={styles.screen}>
-      <div ref={headerRef} className={styles.stickyBar}>
-        <header className={styles.header}>
-          <div className={styles.marquee} aria-label="Добро пожаловать в приложение System 108">
-            <div className={styles.marqueeTrack}>
-              <span>{MARQUEE_TEXT}</span>
-              <span aria-hidden>{MARQUEE_TEXT}</span>
-            </div>
+    <>
+      {selectedEvent ? (
+        <EventDetail
+          event={selectedEvent}
+          onBack={() => setSelectedEvent(null)}
+          onOpenLink={openExternal}
+        />
+      ) : (
+        <div className={styles.screen}>
+          <div ref={headerRef} className={styles.stickyBar}>
+            <header className={styles.header}>
+              <div className={styles.marquee} aria-label="Добро пожаловать в приложение System 108">
+                <div className={styles.marqueeTrack}>
+                  <span>{MARQUEE_TEXT}</span>
+                  <span aria-hidden>{MARQUEE_TEXT}</span>
+                </div>
+              </div>
+              <img className={styles.headerLogo} src={LOGO_URL} alt="System 108" />
+              <p className={styles.eyebrow}>Moscow · since 2015</p>
+              <p className={styles.subtitle}>info@system108.com</p>
+            </header>
+
+            <TabBar active={tab} onChange={setTab} />
           </div>
-          <img className={styles.headerLogo} src={LOGO_URL} alt="System 108" />
-          <p className={styles.eyebrow}>Moscow · since 2015</p>
-          <p className={styles.subtitle}>info@system108.com</p>
-        </header>
 
-        <TabBar active={tab} onChange={setTab} />
-      </div>
-
-      <main className={styles.content}>
-        {tab === "events" && (
-          <section>
-            {upcomingEvents.length === 0 ? (
-              <p className={styles.empty}>Ближайших ивентов пока нет</p>
-            ) : (
-              upcomingEvents.map((event) => (
-                <EventCard
-                  key={event.id}
-                  event={event}
-                  onOpen={() => setSelectedEvent(event)}
-                />
-              ))
+          <main className={styles.content}>
+            {tab === "events" && (
+              <section>
+                {upcomingEvents.length === 0 ? (
+                  <p className={styles.empty}>Ближайших ивентов пока нет</p>
+                ) : (
+                  upcomingEvents.map((event) => (
+                    <EventCard
+                      key={event.id}
+                      event={event}
+                      onOpen={() => setSelectedEvent(event)}
+                    />
+                  ))
+                )}
+              </section>
             )}
-          </section>
-        )}
 
-        {tab === "releases" && (
-          <section>
-            {data.releases.map((release) => (
-              <ReleaseCard
-                key={release.id}
-                release={release}
-                onListen={() => openExternal(release.listenUrl)}
-              />
-            ))}
-          </section>
-        )}
+            {tab === "releases" && (
+              <section>
+                {data.releases.map((release) => (
+                  <ReleaseCard
+                    key={release.id}
+                    release={release}
+                    onListen={() => openExternal(release.listenUrl)}
+                  />
+                ))}
+              </section>
+            )}
 
-        {tab === "news" && (
-          <section>
-            {data.articles.map((article) => (
-              <ArticleCard
-                key={article.id}
-                article={article}
-                onRead={() => openExternal(article.url)}
-              />
-            ))}
-          </section>
-        )}
-      </main>
+            {tab === "news" && (
+              <section>
+                {data.articles.map((article) => (
+                  <ArticleCard
+                    key={article.id}
+                    article={article}
+                    onRead={() => openExternal(article.url)}
+                  />
+                ))}
+              </section>
+            )}
+          </main>
 
-      <footer className={styles.footer}>
-        <button type="button" onClick={() => openExternal("https://system108.com")}>
-          system108.com
-        </button>
-        <span>ver.{appVersion.version}</span>
-      </footer>
+          <footer className={styles.footer}>
+            <button type="button" onClick={() => openExternal("https://system108.com")}>
+              system108.com
+            </button>
+            <span>ver.{appVersion.version}</span>
+          </footer>
+        </div>
+      )}
 
       <PromoTicket onOpenLink={openExternal} />
-    </div>
+    </>
   );
 }
