@@ -6,6 +6,7 @@ import { ReleaseCard } from "./components/ReleaseCard";
 import { ArticleCard } from "./components/ArticleCard";
 import { EventDetail } from "./components/EventDetail";
 import { TabBar } from "./components/TabBar";
+import { PromoTicket } from "./components/PromoTicket";
 import styles from "./App.module.scss";
 import { useDeviceTilt } from "./hooks/useDeviceTilt";
 import appVersion from "../../version.json";
@@ -17,6 +18,7 @@ const MARQUEE_TEXT =
   "Добро пожаловать в приложение System 108 · Welcome to System 108 app · ";
 
 const HEADER_COMPACT_SCROLL = 30;
+const HEADER_COMPACT_RANGE = 72;
 
 function openExternal(url) {
   if (WebApp.openLink) {
@@ -32,7 +34,7 @@ export default function App() {
   const [error, setError] = useState(null);
   const [tab, setTab] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [headerCompact, setHeaderCompact] = useState(false);
+  const [headerProgress, setHeaderProgress] = useState(0);
 
   useDeviceTilt();
 
@@ -52,13 +54,31 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    function onScroll() {
-      setHeaderCompact(window.scrollY > HEADER_COMPACT_SCROLL);
+    let rafId = 0;
+
+    function updateHeaderProgress() {
+      const scrollY = window.scrollY;
+      const progress =
+        scrollY <= HEADER_COMPACT_SCROLL
+          ? 0
+          : Math.min(1, (scrollY - HEADER_COMPACT_SCROLL) / HEADER_COMPACT_RANGE);
+
+      setHeaderProgress(progress);
+      rafId = 0;
     }
 
-    onScroll();
+    function onScroll() {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateHeaderProgress);
+      }
+    }
+
+    updateHeaderProgress();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const upcomingEvents = useMemo(
@@ -96,7 +116,10 @@ export default function App() {
 
   return (
     <div className={styles.screen}>
-      <div className={`${styles.stickyBar} ${headerCompact ? styles.stickyBarCompact : ""}`}>
+      <div
+        className={styles.stickyBar}
+        style={{ "--header-progress": headerProgress }}
+      >
         <header className={styles.header}>
           <div className={styles.marquee} aria-label="Добро пожаловать в приложение System 108">
             <div className={styles.marqueeTrack}>
@@ -160,6 +183,8 @@ export default function App() {
         </button>
         <span>ver.{appVersion.version}</span>
       </footer>
+
+      <PromoTicket onOpenLink={openExternal} />
     </div>
   );
 }

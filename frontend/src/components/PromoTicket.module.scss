@@ -1,0 +1,117 @@
+@use "../styles/variables" as *;
+
+$promo-red: #e8342f;
+$promo-red-text: #ffffff;
+$promo-inset: 8px;
+$promo-dismiss-size: 22px;
+$screen-gutter: 16px;
+$screen-max: 720px;
+
+.wrap {
+  position: fixed;
+  right: $screen-gutter;
+  bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  z-index: 30;
+  transform: translateX(calc(100% + #{$screen-gutter}));
+  transition: transform 0.52s $ease-ios-spring;
+  pointer-events: none;
+
+  @media (min-width: #{$screen-max + 1px}) {
+    right: calc((100vw - #{$screen-max}) / 2 + #{$screen-gutter});
+  }
+}
+
+.wrapVisible {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.panel {
+  padding: $promo-inset;
+  background: $ios-segmented;
+  border-radius: 12px;
+  box-shadow:
+    $ios-shadow,
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.buyShell {
+  position: relative;
+  display: inline-flex;
+}
+
+.buy {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  padding:
+    $promo-inset
+    calc(#{$promo-inset} + #{$promo-dismiss-size} + 6px)
+    $promo-inset
+    $promo-inset;
+  background: $promo-red;
+  color: $promo-red-text;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow:
+    0 3px 10px rgba(232, 52, 47, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s $ease-ios;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.dismiss {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $promo-dismiss-size;
+  height: $promo-dismiss-size;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.92);
+  -webkit-tap-highlight-color: transparent;
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.dismissCount {
+  font-size: 10px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.dismissIcon {
+  width: 12px;
+  height: 12px;
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.dismissReady {
+  background: rgba(0, 0, 0, 0.32);
+
+  &:active {
+    background: rgba(0, 0, 0, 0.48);
+  }
+}

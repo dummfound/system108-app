@@ -8,16 +8,19 @@
 }
 
 .stickyBar {
+  --header-progress: 0;
   position: sticky;
   top: 0;
   z-index: 10;
-  padding: 16px 0 12px;
-  margin-bottom: 18px;
+  padding:
+    calc(16px - 8px * var(--header-progress))
+    0
+    calc(12px - 2px * var(--header-progress));
+  margin-bottom: calc(18px - 6px * var(--header-progress));
   background: rgba(10, 10, 10, 0.82);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid transparent;
-  transition: padding 0.28s $ease-ios, margin-bottom 0.28s $ease-ios;
 
   &::after {
     content: "";
@@ -28,36 +31,6 @@
     height: 1px;
     background: linear-gradient(to right, transparent, $border, transparent);
     opacity: 0.6;
-  }
-}
-
-.stickyBarCompact {
-  padding: 8px 0 10px;
-  margin-bottom: 12px;
-
-  .header {
-    margin-bottom: 10px;
-  }
-
-  .marquee {
-    max-height: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    opacity: 0;
-    border-color: transparent;
-  }
-
-  .headerLogo {
-    width: 72px;
-    margin-bottom: 0;
-  }
-
-  .eyebrow,
-  .subtitle {
-    max-height: 0;
-    margin: 0;
-    opacity: 0;
   }
 }
 
@@ -131,26 +104,21 @@
 }
 
 .header {
-  margin-bottom: 14px;
-  transition: margin-bottom 0.28s ease;
+  margin-bottom: calc(14px - 4px * var(--header-progress, 0));
 }
 
 .marquee {
   overflow: hidden;
-  max-height: 14px;
-  margin-bottom: 12px;
+  max-height: calc(14px * (1 - var(--header-progress, 0)));
+  margin-bottom: calc(12px * (1 - var(--header-progress, 0)));
   background: $ios-segmented;
-  padding: 1px 0;
-  opacity: 1;
+  padding:
+    calc(1px * (1 - var(--header-progress, 0)))
+    0;
+  opacity: calc(1 - var(--header-progress, 0));
   border-radius: 6px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-  transition:
-    max-height 0.28s ease,
-    opacity 0.22s ease,
-    margin 0.28s ease,
-    padding 0.28s ease,
-    border-color 0.22s ease;
 }
 
 .marqueeTrack {
@@ -172,8 +140,8 @@
 
 @media (max-width: 480px) {
   .marquee {
-    max-height: 11px;
-    margin-bottom: 10px;
+    max-height: calc(11px * (1 - var(--header-progress, 0)));
+    margin-bottom: calc(10px * (1 - var(--header-progress, 0)));
     padding: 0;
     border-radius: 4px;
   }
@@ -197,32 +165,29 @@
 
 .headerLogo {
   display: block;
-  width: 120px;
+  width: calc(120px - 48px * var(--header-progress, 0));
   height: auto;
-  margin-bottom: 14px;
-  transition: width 0.28s ease, margin 0.28s ease;
+  margin-bottom: calc(14px * (1 - var(--header-progress, 0)));
 }
 
 .eyebrow {
-  margin: 0 0 6px;
+  margin: 0 0 calc(6px * (1 - var(--header-progress, 0)));
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: $muted;
-  max-height: 20px;
-  opacity: 1;
+  max-height: calc(20px * (1 - var(--header-progress, 0)));
+  opacity: calc(1 - var(--header-progress, 0));
   overflow: hidden;
-  transition: opacity 0.22s ease, max-height 0.28s ease, margin 0.28s ease;
 }
 
 .subtitle {
-  margin: 8px 0 0;
+  margin: calc(8px * (1 - var(--header-progress, 0))) 0 0;
   color: $muted;
   font-size: 14px;
-  max-height: 24px;
-  opacity: 1;
+  max-height: calc(24px * (1 - var(--header-progress, 0)));
+  opacity: calc(1 - var(--header-progress, 0));
   overflow: hidden;
-  transition: opacity 0.22s ease, max-height 0.28s ease, margin 0.28s ease;
 }
 
 .content {
