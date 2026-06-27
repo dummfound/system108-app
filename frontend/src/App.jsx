@@ -9,6 +9,7 @@ import { TabBar } from "./components/TabBar";
 import { PromoTicket } from "./components/PromoTicket";
 import styles from "./App.module.scss";
 import { useDeviceTilt } from "./hooks/useDeviceTilt";
+import { useHeaderScrollProgress } from "./hooks/useHeaderScrollProgress";
 import appVersion from "../../version.json";
 
 const LOGO_URL =
@@ -34,9 +35,12 @@ export default function App() {
   const [error, setError] = useState(null);
   const [tab, setTab] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [headerProgress, setHeaderProgress] = useState(0);
 
   useDeviceTilt();
+  const headerRef = useHeaderScrollProgress({
+    start: HEADER_COMPACT_SCROLL,
+    range: HEADER_COMPACT_RANGE,
+  });
 
   useEffect(() => {
     async function loadData() {
@@ -51,48 +55,6 @@ export default function App() {
     }
 
     loadData();
-  }, []);
-
-  useEffect(() => {
-    let rafId = 0;
-    let current = 0;
-
-    function getScrollY() {
-      return window.scrollY || document.documentElement.scrollTop || 0;
-    }
-
-    function getTargetProgress() {
-      const scrollY = getScrollY();
-      if (scrollY <= HEADER_COMPACT_SCROLL) return 0;
-      return Math.min(1, (scrollY - HEADER_COMPACT_SCROLL) / HEADER_COMPACT_RANGE);
-    }
-
-    function tick() {
-      const target = getTargetProgress();
-      current += (target - current) * 0.18;
-
-      if (Math.abs(target - current) < 0.001) {
-        current = target;
-        rafId = 0;
-      } else {
-        rafId = window.requestAnimationFrame(tick);
-      }
-
-      setHeaderProgress(current);
-    }
-
-    function scheduleTick() {
-      if (!rafId) {
-        rafId = window.requestAnimationFrame(tick);
-      }
-    }
-
-    scheduleTick();
-    window.addEventListener("scroll", scheduleTick, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", scheduleTick);
-      if (rafId) window.cancelAnimationFrame(rafId);
-    };
   }, []);
 
   const upcomingEvents = useMemo(
@@ -130,10 +92,7 @@ export default function App() {
 
   return (
     <div className={styles.screen}>
-      <div
-        className={styles.stickyBar}
-        style={{ "--header-progress": headerProgress.toFixed(4) }}
-      >
+      <div ref={headerRef} className={styles.stickyBar}>
         <header className={styles.header}>
           <div className={styles.marquee} aria-label="Добро пожаловать в приложение System 108">
             <div className={styles.marqueeTrack}>
