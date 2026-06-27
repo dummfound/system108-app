@@ -35,18 +35,15 @@ export function EventDetail({ event, onBack, onOpenLink }) {
         )}
 
         <div className={styles.actions}>
-          {event.ticketUrl && (
+          {(event.ticketUrl || event.url) && (
             <button
               type="button"
               className={styles.primary}
-              onClick={() => onOpenLink(event.ticketUrl)}
+              onClick={() => onOpenLink(event.ticketUrl || event.url)}
             >
-              Купить билеты
+              Билеты
             </button>
           )}
-          <button type="button" className={styles.secondary} onClick={() => onOpenLink(event.url)}>
-            На сайте
-          </button>
         </div>
       </div>
     </div>

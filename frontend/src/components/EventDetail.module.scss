@@ -82,12 +82,12 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 4px;
 
   li {
-    @include ios-chip;
-    padding: 9px 12px;
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: $muted;
     text-transform: uppercase;
     letter-spacing: 0.02em;
   }
@@ -103,11 +103,5 @@
 .primary {
   @include pill-primary;
   padding: 12px 20px;
-  font-size: 14px;
-}
-
-.secondary {
-  @include pill-secondary;
-  padding: 12px 18px;
   font-size: 14px;
 }

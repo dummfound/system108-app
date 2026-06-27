@@ -39,7 +39,7 @@ const seedData = {
       city: "MOSCOW",
       status: "upcoming",
       lineup: ["SIMPLE SYMMETRY", "GEJU"],
-      url: "https://system108.com/e100726",
+      url: "https://system108.com/e100726#event/2750816",
     },
     {
       id: "e310726",
@@ -49,8 +49,16 @@ const seedData = {
       venue: "АЛЬФА КРИСТАЛЛ",
       city: "MOSCOW",
       status: "upcoming",
-      lineup: ["МАМА СВЕТА"],
-      url: "https://system108.com/e310726",
+      lineup: [
+        "PRIMIT",
+        "KOVYAZIN D",
+        "XRUTALIC",
+        "ERRORTICA",
+        "STUDMIRE",
+        "BLESSNA",
+        "ECHO BLOOM",
+      ],
+      url: "https://system108.com/e310726#event/2732007",
     },
   ],
   articles: [

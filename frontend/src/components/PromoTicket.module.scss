@@ -2,34 +2,28 @@
 
 $promo-red: #e8342f;
 $promo-red-text: #ffffff;
-$promo-inset: 8px;
-$promo-dismiss-size: 22px;
-$screen-gutter: 16px;
-$screen-max: 720px;
+$promo-inset: 10px;
+$promo-dismiss-size: 24px;
 
 .wrap {
   position: fixed;
-  right: $screen-gutter;
+  left: 50%;
   bottom: calc(28px + env(safe-area-inset-bottom, 0px));
   z-index: 30;
-  transform: translateX(calc(100% + #{$screen-gutter}));
+  transform: translateX(50vw);
   transition: transform 0.52s $ease-ios-spring;
   pointer-events: none;
-
-  @media (min-width: #{$screen-max + 1px}) {
-    right: calc((100vw - #{$screen-max}) / 2 + #{$screen-gutter});
-  }
 }
 
 .wrapVisible {
-  transform: translateX(0);
+  transform: translateX(-50%);
   pointer-events: auto;
 }
 
 .panel {
-  padding: $promo-inset;
+  padding: 6px;
   background: $ios-segmented;
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow:
     $ios-shadow,
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -45,15 +39,15 @@ $screen-max: 720px;
   display: inline-flex;
   align-items: center;
   border: none;
-  border-radius: 10px;
+  border-radius: 11px;
   padding:
-    $promo-inset
-    calc(#{$promo-inset} + #{$promo-dismiss-size} + 6px)
-    $promo-inset
-    $promo-inset;
+    12px
+    calc(#{$promo-inset} + #{$promo-dismiss-size} + 10px)
+    12px
+    calc(#{$promo-inset} + 6px);
   background: $promo-red;
   color: $promo-red-text;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -72,8 +66,8 @@ $screen-max: 720px;
 
 .dismiss {
   position: absolute;
-  top: 3px;
-  right: 5px;
+  top: 5px;
+  right: 6px;
   z-index: 1;
   display: flex;
   align-items: center;
@@ -94,15 +88,15 @@ $screen-max: 720px;
 }
 
 .dismissCount {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 
 .dismissIcon {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   display: block;
   flex-shrink: 0;
   overflow: visible;

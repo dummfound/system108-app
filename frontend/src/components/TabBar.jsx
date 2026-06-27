@@ -1,7 +1,7 @@
 import styles from "./TabBar.module.scss";
 
 const tabs = [
-  { id: "events", label: "Ивенты" },
+  { id: "events", label: "События" },
   { id: "releases", label: "Релизы" },
   { id: "news", label: "Новости" },
 ];

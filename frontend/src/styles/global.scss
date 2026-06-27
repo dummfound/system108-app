@@ -1,14 +1,9 @@
 @use "variables" as *;
+@use "fonts";
 
 :root {
   color-scheme: dark;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Text",
-    "Segoe UI",
-    system-ui,
-    sans-serif;
+  font-family: $font-family;
   line-height: 1.45;
   font-weight: 400;
   color: $text;

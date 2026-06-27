@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { getLineupForEvent } from "./lineups.js";
 
 const BASE_URL = "https://system108.com";
 const FETCH_HEADERS = {
@@ -135,14 +136,14 @@ export async function scrapeEvents() {
       city,
       status: parseEventStatus(card),
       posterUrl,
-      lineup: parseLineup(title),
+      lineup: getLineupForEvent(slug, parseLineup(title)),
       url: `${BASE_URL}/${slug}`,
     });
   });
 
   const upcoming = events.filter((event) => event.status === "upcoming");
   const enriched = await Promise.all(
-    upcoming.slice(0, 6).map(async (event) => {
+    upcoming.map(async (event) => {
       try {
         const detailHtml = await fetchHtml(`/${event.slug}`);
         const detail = cheerio.load(detailHtml);
@@ -158,6 +159,7 @@ export async function scrapeEvents() {
           ...event,
           posterUrl: poster ?? event.posterUrl,
           ticketUrl: ticketHref,
+          lineup: getLineupForEvent(event.slug, event.lineup),
         };
       } catch {
         return event;
