@@ -55,28 +55,42 @@ export default function App() {
 
   useEffect(() => {
     let rafId = 0;
+    let current = 0;
 
-    function updateHeaderProgress() {
-      const scrollY = window.scrollY;
-      const progress =
-        scrollY <= HEADER_COMPACT_SCROLL
-          ? 0
-          : Math.min(1, (scrollY - HEADER_COMPACT_SCROLL) / HEADER_COMPACT_RANGE);
-
-      setHeaderProgress(progress);
-      rafId = 0;
+    function getScrollY() {
+      return window.scrollY || document.documentElement.scrollTop || 0;
     }
 
-    function onScroll() {
+    function getTargetProgress() {
+      const scrollY = getScrollY();
+      if (scrollY <= HEADER_COMPACT_SCROLL) return 0;
+      return Math.min(1, (scrollY - HEADER_COMPACT_SCROLL) / HEADER_COMPACT_RANGE);
+    }
+
+    function tick() {
+      const target = getTargetProgress();
+      current += (target - current) * 0.18;
+
+      if (Math.abs(target - current) < 0.001) {
+        current = target;
+        rafId = 0;
+      } else {
+        rafId = window.requestAnimationFrame(tick);
+      }
+
+      setHeaderProgress(current);
+    }
+
+    function scheduleTick() {
       if (!rafId) {
-        rafId = window.requestAnimationFrame(updateHeaderProgress);
+        rafId = window.requestAnimationFrame(tick);
       }
     }
 
-    updateHeaderProgress();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    scheduleTick();
+    window.addEventListener("scroll", scheduleTick, { passive: true });
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", scheduleTick);
       if (rafId) window.cancelAnimationFrame(rafId);
     };
   }, []);
@@ -118,7 +132,7 @@ export default function App() {
     <div className={styles.screen}>
       <div
         className={styles.stickyBar}
-        style={{ "--header-progress": headerProgress }}
+        style={{ "--header-progress": headerProgress.toFixed(4) }}
       >
         <header className={styles.header}>
           <div className={styles.marquee} aria-label="Добро пожаловать в приложение System 108">
